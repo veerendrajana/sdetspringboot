@@ -1,11 +1,21 @@
 package com.example.sdet.utilities;
 
-import com.example.sdet.service.CountryService;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.sdet.beans.Country;
+import com.example.sdet.repositories.CountryRepository;
 
 public class GetNumberOfRecords {
+	
+	@Autowired
+	CountryRepository countryRepository;
 
-	public static int getMaxId() {
+	public int getMaxId() {
 		
-		return CountryService.countryIdMap.keySet().size() + 1;
+		List<Country> countries = countryRepository.findAll();
+		
+		return countries.size() + 1;
 	}
 }

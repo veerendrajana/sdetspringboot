@@ -1,6 +1,6 @@
 package com.example.sdet.service;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,24 +11,19 @@ import com.example.sdet.repositories.CountryRepository;
 
 @Component
 @Service
-public class GetCountryByNameService {
+public class GetCountryByIdService{
 	
 	@Autowired
 	CountryRepository countryRepository;
-	
-	public Country getCountryByName(String name) {
+
+	public Country getCountryById(int id) {
 		
-		Country country = null;
+		Optional<Country> countryById = countryRepository.findById(id);
 		
-		List<Country> countries = countryRepository.findAll();
-		
-		for(Country con : countries) {
-			if(con.getCountryName().equalsIgnoreCase(name)) {
-				country = con;
-			}
+		if(countryById.isPresent()) {
+			return countryById.get();
 		}
 		
-		
-		return country;
+		return null;
 	}
 }

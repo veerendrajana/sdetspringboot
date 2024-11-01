@@ -1,15 +1,24 @@
 package com.example.sdet.service;
 
-import com.example.sdet.beans.Country;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-public class UpdateCountryService {
+import com.example.sdet.beans.Country;
+import com.example.sdet.repositories.CountryRepository;
+
+@Component
+@Service
+public class UpdateCountryService{
+	
+	@Autowired
+	CountryRepository countryRepository;
 
 	public Country updateCountry(Country country) {
 		
-		if(country.getId() > 0) {
-			CountryService.countryIdMap.put(country.getId(), country);
-		}
+		countryRepository.save(country);
 		
 		return country;
+		
 	}
 }

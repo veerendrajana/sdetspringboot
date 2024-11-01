@@ -11,24 +11,24 @@ import com.example.sdet.repositories.CountryRepository;
 
 @Component
 @Service
-public class GetCountryByNameService {
+public class AddCountryService {
 	
 	@Autowired
 	CountryRepository countryRepository;
-	
-	public Country getCountryByName(String name) {
+
+	public Country createCountry(Country country) {
 		
-		Country country = null;
+		country.setId(getMaxId());
+		
+		countryRepository.save(country);
+		
+		return country;
+	}
+	
+	public int getMaxId() {
 		
 		List<Country> countries = countryRepository.findAll();
 		
-		for(Country con : countries) {
-			if(con.getCountryName().equalsIgnoreCase(name)) {
-				country = con;
-			}
-		}
-		
-		
-		return country;
+		return countries.size() + 1;
 	}
 }

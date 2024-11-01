@@ -1,16 +1,23 @@
 package com.example.sdet.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.example.sdet.beans.Country;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import com.example.sdet.beans.Country;
+import com.example.sdet.repositories.CountryRepository;
+
+@Component
+@Service
 public class GetAllCountriesService {
+	
+	@Autowired
+	CountryRepository countryRepository;
 
 	public List<Country> getAllCountries() {
 		
-		List<Country> countries = new ArrayList<>(CountryService.countryIdMap.values());
-		
-		return countries;
+		return countryRepository.findAll();
 	}
 }
